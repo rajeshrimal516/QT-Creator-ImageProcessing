@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>Icons/brightness(1).png</file>
+        <file>Icons/camera.png</file>
+        <file>Icons/color-circle.png</file>
+        <file>Icons/expand.png</file>
+        <file>Icons/hue-circle.png</file>
+        <file>Icons/image.png</file>
+        <file>Icons/sharp.png</file>
+    </qresource>
+    <qresource prefix="/Icon">
+        <file>Icons/brightness(2).png</file>
+        <file>Icons/cancel.png</file>
+        <file>Icons/diskette.png</file>
+    </qresource>
+</RCC>
