@@ -1,9 +1,24 @@
+/*********************************************************************************
+ * @file Edit.cpp
+ * @author Rajesh Rimal (rajeshrimal516@gmail.com)
+ * @brief Source file for the image propcessing functions
+ * @version 0.1
+ * @date 2022-07-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ ********************************************************************************/
 #include "Edit.h"
 
 QElapsedTimer timer;
-
 using namespace std;
 
+/*********************************************************************************
+ * @brief Function for changing the brightness in the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ ********************************************************************************/
 void Brightness(QImage* inImage, int sliderPos)
 {
     uchar *inPixel = inImage->bits();
@@ -33,8 +48,16 @@ void Brightness(QImage* inImage, int sliderPos)
         }
     }
     qDebug()<<"Brightness Loop Exectuion Time: "<< timer.elapsed()<<endl;
-}
+}/************************ End of function Brightness ***************************/
 
+
+
+/*********************************************************************************
+ * @brief Function for changing the contrast in the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ ********************************************************************************/
 void Contrast (QImage* inImage, int sliderPos)
 {
     uchar *inPixel = inImage->bits();
@@ -69,8 +92,15 @@ void Contrast (QImage* inImage, int sliderPos)
           }
     }
     qDebug()<<"Contrast Loop Exectuion Time: "<< timer.elapsed()<<endl;
-}
+}/************************* End of function Contrast ****************************/
 
+
+/*********************************************************************************
+ * @brief Function for changing the color in the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ ********************************************************************************/
 void Color(QImage* inImage, int sliderPos)
 {
     uchar *inPixel = inImage->bits();
@@ -100,8 +130,14 @@ void Color(QImage* inImage, int sliderPos)
         }
     }
      qDebug()<<"Color Loop Exectuion Time: "<< timer.elapsed()<<endl;
-}
+}/***************************** End of function Color *****************************/
 
+/*********************************************************************************
+ * @brief Function for changing the hue in the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ ********************************************************************************/
 void Hue(QImage* inImage, int sliderPos)
 {
     uchar *inPixel = inImage->bits();
@@ -131,8 +167,17 @@ void Hue(QImage* inImage, int sliderPos)
         }
     }
      qDebug()<<"Hue Loop Exectuion Time: "<< timer.elapsed()<<endl;
-}
+}/**************************** End of function Resize ***************************/
 
+
+
+/*********************************************************************************
+ * @brief Function for sharpning or bluring the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ * @return sharpened or blurred image in QImage format
+ ********************************************************************************/
 QImage Sharpness(QImage inImage, int sliderPos)
 {
     int height = inImage.height();
@@ -181,8 +226,6 @@ QImage Sharpness(QImage inImage, int sliderPos)
         double Numerator = 0;
         double Denominator = M_PI * expDenominator;
         double blurKernel[3][3];
-        double blurKernel1D[9] = { 0 };
-
         for (int x = -1; x <= 1; x++)
                {
                    for (int y = -1; y <=1; y++)
@@ -195,53 +238,31 @@ QImage Sharpness(QImage inImage, int sliderPos)
                }
                for (int i = 0; i < 3; i++)
                {
-                   printf("[");
                    for (int j = 0; j < 3; j++)
                    {
                        blurKernel[i][j] /= kernelSum;
-                       printf("%.8lf\t", blurKernel[i][j]);
                        sum += blurKernel[i][j];
                    }
-                   printf("]\n");
                }
-               printf("Sum: %lf, %lf", kernelSum, sum);
-
-            /*for (int x = 0; x < 9; x++)
-            {
-                expNumerator = (double)pow((x - 4), 2);
-                blurKernel1D[x] = exp(-(expNumerator / expDenominator));
-                sum += blurKernel1D[x];
-            }
-            for (int j = 0; j < 9; j++)
-            {
-                blurKernel1D[j] /= sum;
-                kernelSum += blurKernel1D[j];
-            }
-
-            printf("Sum: %lf ,KernelSum: %lf\n", sum,kernelSum);
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    blurKernel[i][j] = blurKernel1D[(i * 3) + j];
-                    printf("%0.12lf\t", blurKernel[i][j]);
-                }
-                printf("\n");
-            }*/
-
-        cout<< "Slider Pos: "<<sliderPos<<"  Standard Dev: "<<factor<<endl;
         Convolution(&inImage,&outImage,blurKernel);
     }
     else
     {
         outImage = inImage;
     }
-        printf("\n");
-     cout<<"Sharpness/Blur Loop Exectuion Time: "<< timer.elapsed()<<endl;
+     qDebug()<<"Sharpness/Blur Loop Exectuion Time: "<< timer.elapsed()<<endl;
     return outImage;
-}
+}/************************* End of function Sharpness ***************************/
 
+
+
+/*********************************************************************************
+ * @brief Function for resizing the slide of the image
+ * 
+ * @param inImage Image in QImage format 
+ * @param sliderPos Position of the slider from (-100 to 100)
+ * @return resized image in QImage format
+ ********************************************************************************/
 QImage Resize(QImage inImage, int sliderPos)
 {
     uchar *inPixel = inImage.bits();
@@ -274,69 +295,17 @@ QImage Resize(QImage inImage, int sliderPos)
     }
      qDebug()<<"Resize Loop Exectuion Time: "<< timer.elapsed()<<endl;
     return outImage;
-}
+}/***************************** End of function Resize **************************/
 
-/*double binaryMedian(int m[][3])
-{
-    double min = 0, max = 255;
-    for (int i=0; i<3; i++)
-    {
-        if (m[i][0] < min)
-            min = m[i][0];
-        if (m[i][3-1] > max)
-            max = m[i][3-1];
-    }
-    double desired = (3 * 3 + 1) / 2;
-    while (min < max)
-    {
-        int mid = min + (max - min) / 2;
-        int place = 0;
-        for (int i = 0; i < 3; ++i)
-            place += upper_bound(m[i], m[i]+3, mid) - m[i];
-        if (place < desired)
-            min = mid + 1;
-        else
-            max = mid;
-    }
-    return min;
-}
 
-void medianFilter(QImage *inImage, QImage* outImage)
-{
-    uchar *inPixel = inImage->bits();
-    int height = inImage->height();
-    int width = inImage->width();
-    int pixel_index,position;
-    int rowIdx, colIdx;
-    uchar *final = outImage->bits();
-    int matrixR[3][3];
-    int matrixG[3][3];
-    int matrixB[3][3];
-    for(rowIdx = 0; rowIdx < width-1; rowIdx++)
-    {
-        for(colIdx = 0; colIdx < height-1;colIdx++)
-        {
-            for(int p=-1;p<2;p++)
-            {
-                for(int q=-1;q<2;q++)
-                {
-                    pixel_index = 4*(rowIdx+p) + 4*width*(colIdx+q);
-                    matrixR[p+1][q+1]=  inPixel[pixel_index + 2 ];
-                    matrixG[p+1][q+1]=  inPixel[pixel_index + 1 ];
-                    matrixB[p+1][q+1]=  inPixel[pixel_index + 0 ];
-                }
-            }
-                double medianR = binaryMedian(matrixR);
-                double medianG = binaryMedian(matrixG);
-                double medianB = binaryMedian(matrixB);
-                position = 4*rowIdx + 4*width*colIdx;
-                final[position + 0 ]= medianB;
-                final[position + 1 ]= medianG;
-                final[position + 2 ]= medianR;
-        }
-    }
-}*/
 
+/*********************************************************************************
+ * @brief Function for performing the convolution in the image
+ * 
+ * @param inImage Image in QImage format
+ * @param outImage Image in QImage format 
+ * @param KernelMatrix kernel matrix for convolution (3x3)
+ ********************************************************************************/
 void Convolution(QImage *inImage, QImage* outImage, double KernelMatrix[][3])
 {
     uchar *inPixel = inImage->bits();
@@ -391,64 +360,16 @@ void Convolution(QImage *inImage, QImage* outImage, double KernelMatrix[][3])
                 outPixel[position + 2 ]= sumr;
        }
     }
-}
-
-void bilateralFilter(QImage *inImage, QImage* outImage, double KernelMatrix[][3])
-{
-    uchar *inPixel = inImage->bits();
-    int height = inImage->height();
-    int width = inImage->width();
-    int pixel_index,position;
-    int rowIdx, colIdx;
-    uchar *final = outImage->bits();
-
-    int matrix[3][3][3];
-    double sumr=0;
-    double sumg=0;
-    double sumb=0;
-
-    for(rowIdx = 0; rowIdx < width-1; rowIdx++)
-    {
-        for(colIdx = 0; colIdx < height-1;colIdx++)
-        {
-            for(int p=-1;p<2;p++)
-            {
-                for(int q=-1;q<2;q++)
-                {
-                    pixel_index = 4*(rowIdx+p) + 4*width*(colIdx+q);
-                    matrix[p+1][q+1][2]=  inPixel[pixel_index + 2 ];
-                    matrix[p+1][q+1][1]=  inPixel[pixel_index + 1 ];
-                    matrix[p+1][q+1][0]=  inPixel[pixel_index + 0 ];
-                }
-            }
-                sumr=0,sumg=0, sumb=0;
-                for(int p=0; p<3; p++)
-                {
-                    for(int q=0; q<3; q++)
-                    {
-                        sumr +=matrix[p][q][2] * KernelMatrix[p][q];
-                        sumg +=matrix[p][q][1] * KernelMatrix[p][q];
-                        sumb +=matrix[p][q][0] * KernelMatrix[p][q];
-                    }
-                }
+}/************************* End of function Convolution *************************/
 
 
-                sumr=sumr/9;
-                sumg=sumg/9;
-                sumb=sumb/9;
 
-                sumb = (sumb>255)?255:((sumb<0)?0:sumb);
-                sumg = (sumg>255)?255:((sumg<0)?0:sumg);
-                sumr = (sumr>255)?255:((sumr<0)?0:sumr);
-
-                position = 4*rowIdx + 4*width*colIdx;
-                final[position + 0 ]= sumb;
-                final[position + 1 ]= sumg;
-                final[position + 2 ]= sumr;
-       }
-    }
-}
-
+/*********************************************************************************
+ * @brief Function for conversion of HSV to RGB
+ * 
+ * @param hsv structure with H, S and V value
+ * @return RgbColor structure with R, G and B value
+ ********************************************************************************/
 RgbColor HsvToRgb(HsvColor hsv)
 {
     RgbColor rgb;
@@ -505,8 +426,16 @@ RgbColor HsvToRgb(HsvColor hsv)
             break;
     }
     return rgb;
-}
+}/************************** End of function HsvToRgb ****************************/
 
+
+
+/*********************************************************************************
+ * @brief Function for conversion of RGB to HSV
+ * 
+ * @param rgb RgbColor structure with R, G and B value
+ * @return HSV structure with H, S, and V value
+ ********************************************************************************/
 HsvColor RgbToHsv(RgbColor rgb)
 {
     HsvColor hsv;
@@ -538,55 +467,4 @@ HsvColor RgbToHsv(RgbColor rgb)
         hsv.h = 171 + 43 * (double)(rgb.r - rgb.g) / (rgbMax - rgbMin);
     hsv.h = hsv.h + 86;
     return hsv;
-}
-
-/*{
-    uchar *inPixel = received.inPixels();
-    int height = received.height();
-    int width = received.width();
-    int rowIdx, colIdx=0;
-    int i,j;
-    double factor = sliderPos*2.0;
-    timer.start();
-    for(rowIdx = 0; rowIdx < width/4;rowIdx= rowIdx+1)
-    {
-       for(colIdx = 0; colIdx < height/4; colIdx= colIdx+1)
-        {
-            i=4*rowIdx; j = 4*colIdx;
-            brightnessIncrease(&inPixel[4 * i + 4 * width *j],factor);
-            brightnessIncrease(&inPixel[4 * i + 4 * width * (j+1)],factor);
-            brightnessIncrease(&inPixel[4 * i + 4 * width * (j+2)],factor);
-            brightnessIncrease(&inPixel[4 * i + 4 * width * (j+3)],factor);
-
-            brightnessIncrease(&inPixel[4 * (i+1) + 4 * width *j],factor);
-            brightnessIncrease(&inPixel[4 * (i+1) + 4 * width * (j+1)],factor);
-            brightnessIncrease(&inPixel[4 * (i+1) + 4 * width * (j+2)],factor);
-            brightnessIncrease(&inPixel[4 * (i+1) + 4 * width * (j+3)],factor);
-
-            brightnessIncrease(&inPixel[4 * (i+2) + 4 * width *j],factor);
-            brightnessIncrease(&inPixel[4 * (i+2) + 4 * width * (j+1)],factor);
-            brightnessIncrease(&inPixel[4 * (i+2) + 4 * width * (j+2)],factor);
-            brightnessIncrease(&inPixel[4 * (i+2) + 4 * width * (j+3)],factor);
-
-            brightnessIncrease(&inPixel[4 * (i+3) + 4 * width *j],factor);
-            brightnessIncrease(&inPixel[4 * (i+3) + 4 * width * (j+1)],factor);
-            brightnessIncrease(&inPixel[4 * (i+3) + 4 * width * (j+2)],factor);
-            brightnessIncrease(&inPixel[4 * (i+3) + 4 * width * (j+3)],factor);
-
-        }
-    }
-   qDebug() << "Slider Pos: "<<sliderPos<<"  Brightness Loop Execution Time" << timer.elapsed() << "milliseconds";
-    return received;
-
-
-    float R,G,B;
-    B =  *(receivedinPixel+0) + factor;
-    G =  *(receivedinPixel+1)+ factor;
-    R =  *(receivedinPixel+2)+ factor;
-    B = (B>255)?255:((B<0)?0:B);
-    G = (G>255)?255:((G<0)?0:G);
-    R = (R>255)?255:((R<0)?0:R);
-     *(receivedinPixel+0)= B;
-     *(receivedinPixel+1)= G;
-     *(receivedinPixel+2)= R;*/
-
+}/************************ End of function RgbToHsv *****************************/

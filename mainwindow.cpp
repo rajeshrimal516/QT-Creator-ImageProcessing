@@ -1,5 +1,24 @@
+/***********************************************************************************
+ * @file mainwindow.cpp
+ * @author Rajesh RImal (rajeshrimal516@gmail.com)
+ * @brief Source for linking the GUI, and events and actions
+ * @version 0.1
+ * @date 2022-07-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ **********************************************************************************/
+
+
 #include "mainwindow.h"
 
+
+
+/***********************************************************************************
+ * @brief Construct a new Main Window:: Main Window object
+ * 
+ * @param parent 
+ **********************************************************************************/
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -14,11 +33,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->CameraView->setLayout(mLayout);
 }
 
+
+
+/***********************************************************************************
+ * @brief Destroy the Main Window:: Main Window object
+ * 
+ **********************************************************************************/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::closeEvent(QCloseEvent *)
 {
     if(ismodified)
@@ -27,11 +58,24 @@ void MainWindow::closeEvent(QCloseEvent *)
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *)
 {
     onToggleFullScreen(!isFullScreen());
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ * @param fs 
+ **********************************************************************************/
 void MainWindow::onToggleFullScreen(bool fs)
 {
     if (fs)
@@ -46,6 +90,14 @@ void MainWindow::onToggleFullScreen(bool fs)
     }
 }
 
+
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ * @param index 
+ **********************************************************************************/
 void MainWindow::on_Tab_tabBarClicked(int index)
 {
 
@@ -69,11 +121,15 @@ void MainWindow::on_Tab_tabBarClicked(int index)
     {
         mCam->stop();
     }
-
-
-
 }
 
+
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionUpload_triggered()
 {   if(ismodified)
     {
@@ -88,7 +144,7 @@ void MainWindow::on_actionUpload_triggered()
         }
 
         }
-    filename_open = QFileDialog::getOpenFileName(this,"Open an image","C:/Users/ASUS/Pictures/Wall",
+    filename_open = QFileDialog::getOpenFileName(this,"Open an image",QDir::homePath(),
                                                   "Images (*.jpg *.jpeg *.JPG *.png *.PNG *.bmp *.BMP );;""JPG (*.jpg *.jpeg *.JPG);;"
                                                   "PNG (*.png *.PNG);;""BMP (*.bmp *.BMP)");
     if(!filename_open.isEmpty())
@@ -113,11 +169,18 @@ void MainWindow::on_actionUpload_triggered()
     }
 }
 
+
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Camera_clicked()
 {
     QDateTime now = QDateTime::currentDateTime();
     QString timestamp = now.toString(QLatin1String("yyyyMMdd-hhmmss"));
-    filename_open = QString::fromLatin1("C:/Users/ASUS/Desktop/QtImageSave/Img-%1.jpg").arg(timestamp);
+    filename_open = QString::fromLatin1("C:/Users/Img-%1.jpg").arg(timestamp);
     mCam->setCaptureMode(QCamera::CaptureStillImage);
     mCamCap->setCaptureDestination(QCameraImageCapture::CaptureToFile);
     mCam->searchAndLock();
@@ -147,6 +210,12 @@ void MainWindow::on_Camera_clicked()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionSave_triggered()
 {
     QFile file(filename_open);
@@ -161,7 +230,7 @@ void MainWindow::on_actionSave_triggered()
         {
             const QDateTime now = QDateTime::currentDateTime();
             const QString timestamp = now.toString(QLatin1String("yyyyMMdd-hhmmss"));
-            const QString filename = QString::fromLatin1("C:/Users/rrajesh/Desktop/QTimage_save/Img-%1.jpg").arg(timestamp);
+            const QString filename = QString::fromLatin1("C:/Users/Img-%1.jpg").arg(timestamp);
             filename_save = QFileDialog::getSaveFileName(this,"Save an Image",filename,"Images (*.jpg *.jpeg *.JPG *.png *.PNG *.bmp *.BMP );;"
                                                     "JPG (*.jpg *.jpeg *.JPG);;"
                                                     "PNG (*.png *.PNG);;"
@@ -177,6 +246,12 @@ void MainWindow::on_actionSave_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionExit_triggered()
 {
     QMessageBox::StandardButton reply = QMessageBox::question(this,"Image Editor","Do you want to save the image before closing?",
@@ -199,7 +274,7 @@ void MainWindow::on_actionExit_triggered()
             {
                 const QDateTime now = QDateTime::currentDateTime();
                 const QString timestamp = now.toString(QLatin1String("yyyyMMdd-hhmmss"));
-                const QString filename = QString::fromLatin1("C:/Users/rrajesh/Desktop/QTimage_save/Img-%1.jpg").arg(timestamp);
+                const QString filename = QString::fromLatin1("C:/Users/Img-%1.jpg").arg(timestamp);
                 filename_save = QFileDialog::getSaveFileName(this,"Save an Image",filename,
                                                          "Images (*.jpg *.jpeg *.JPG *.png *.PNG *.bmp *.BMP );;"
                                                          "JPG (*.jpg *.jpeg *.JPG);;""PNG (*.png *.PNG);;""BMP (*.bmp *.BMP)");
@@ -215,6 +290,12 @@ void MainWindow::on_actionExit_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionBrightess_triggered()
 {
     if(ismodified)
@@ -257,6 +338,12 @@ void MainWindow::on_actionBrightess_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionContrast_triggered()
 {
     if(ismodified)
@@ -299,6 +386,12 @@ void MainWindow::on_actionContrast_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionColor_triggered()
 {
     if(ismodified)
@@ -341,6 +434,12 @@ void MainWindow::on_actionColor_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionHue_triggered()
 {
     if(ismodified)
@@ -383,6 +482,12 @@ void MainWindow::on_actionHue_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionSharpness_triggered()
 {
     if(ismodified)
@@ -425,6 +530,12 @@ void MainWindow::on_actionSharpness_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_actionResize_triggered()
 {
     if(ismodified)
@@ -467,6 +578,13 @@ void MainWindow::on_actionResize_triggered()
     }
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ * @param sliderPos 
+ **********************************************************************************/
 void MainWindow::on_horizontalSlider_valueChanged(int sliderPos)
 {
     QImage send = original_img.copy().toImage();
@@ -532,6 +650,13 @@ void MainWindow::on_horizontalSlider_valueChanged(int sliderPos)
         ismodified=true;
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ * @param displayImage 
+ **********************************************************************************/
 void MainWindow::on_actionImage_Display_triggered(QPixmap displayImage)
 {
     QGraphicsScene *scene=new QGraphicsScene;
@@ -542,46 +667,100 @@ void MainWindow::on_actionImage_Display_triggered(QPixmap displayImage)
     ui->editView->fitInView(scene->itemsBoundingRect() ,Qt::KeepAspectRatio);
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Upload_clicked()
 {
     on_actionUpload_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Save_clicked()
 {
     on_actionSave_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Exit_clicked()
 {
     on_actionExit_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Brightness_clicked()
 {
     on_actionBrightess_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Contrast_clicked()
 {
     on_actionContrast_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Color_clicked()
 {
     on_actionColor_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Hue_clicked()
 {
     on_actionHue_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Sharpness_clicked()
 {
     on_actionSharpness_triggered();
 }
 
+
+
+/***********************************************************************************
+ * @brief 
+ * 
+ **********************************************************************************/
 void MainWindow::on_Resize_clicked()
 {
     on_actionResize_triggered();
