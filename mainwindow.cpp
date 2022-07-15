@@ -9,7 +9,6 @@
  * 
  **********************************************************************************/
 
-
 #include "mainwindow.h"
 
 
@@ -47,7 +46,7 @@ MainWindow::~MainWindow()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief Close any active events
  * 
  **********************************************************************************/
 void MainWindow::closeEvent(QCloseEvent *)
@@ -61,7 +60,7 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief Function to record the mouse double click event. 
  * 
  **********************************************************************************/
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *)
@@ -72,9 +71,9 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief Function to toggle between full screen and normal screen
  * 
- * @param fs 
+ * @param fs Boolean value (True when Normal Screen)
  **********************************************************************************/
 void MainWindow::onToggleFullScreen(bool fs)
 {
@@ -94,9 +93,9 @@ void MainWindow::onToggleFullScreen(bool fs)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief Function to switch between the tabs 
  * 
- * @param index 
+ * @param index Tab index value (1 or 2)
  **********************************************************************************/
 void MainWindow::on_Tab_tabBarClicked(int index)
 {
@@ -127,7 +126,8 @@ void MainWindow::on_Tab_tabBarClicked(int index)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The function to load the image when user clicks upload or (keyboard shortcut Ctrl + o)
+ *   from file menu.
  * 
  **********************************************************************************/
 void MainWindow::on_actionUpload_triggered()
@@ -173,7 +173,8 @@ void MainWindow::on_actionUpload_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The function to capture image using camera when Capture button is clicked 
+ *          by the user in Tab 2 (Open Camera). 
  * 
  **********************************************************************************/
 void MainWindow::on_Camera_clicked()
@@ -213,7 +214,8 @@ void MainWindow::on_Camera_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The function to save the image to desired directory when user clicks Save or 
+ * (keyboard shortcut Ctrl + s) from file menu.
  * 
  **********************************************************************************/
 void MainWindow::on_actionSave_triggered()
@@ -249,7 +251,9 @@ void MainWindow::on_actionSave_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The function to Exit the application the image when user clicks Exit  
+ *          (or keyboard shortcut Esc) from file menu. If the image is modified it
+ *          asks the user to save before exiting.
  * 
  **********************************************************************************/
 void MainWindow::on_actionExit_triggered()
@@ -293,7 +297,8 @@ void MainWindow::on_actionExit_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the brightness when user clicks 
+ *          Brightness in Edit Menu or (Keyboard shortcut B)
  * 
  **********************************************************************************/
 void MainWindow::on_actionBrightess_triggered()
@@ -341,7 +346,8 @@ void MainWindow::on_actionBrightess_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the Contrast when user clicks 
+ *          Contrast in Edit Menu or (Keyboard shortcut C)
  * 
  **********************************************************************************/
 void MainWindow::on_actionContrast_triggered()
@@ -389,7 +395,8 @@ void MainWindow::on_actionContrast_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the Color when user clicks color in 
+ *       Edit Menu or (Keyboard shortcut Ctrl + C)
  * 
  **********************************************************************************/
 void MainWindow::on_actionColor_triggered()
@@ -437,8 +444,9 @@ void MainWindow::on_actionColor_triggered()
 
 
 /***********************************************************************************
- * @brief 
- * 
+ * @brief  The Function to link the event to correct the Hue when user clicks Hue in 
+ *          Edit Menu ( or Keyboard shortcut H)
+ *
  **********************************************************************************/
 void MainWindow::on_actionHue_triggered()
 {
@@ -485,7 +493,8 @@ void MainWindow::on_actionHue_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to sharpnen or blur image when user clicks 
+ * Sharpness in Edit Menu ( or Keyboard shortcut S)
  * 
  **********************************************************************************/
 void MainWindow::on_actionSharpness_triggered()
@@ -533,7 +542,8 @@ void MainWindow::on_actionSharpness_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to rezise image when user clicks 
+ * Resize in Edit Menu ( or Keyboard shortcut R)
  * 
  **********************************************************************************/
 void MainWindow::on_actionResize_triggered()
@@ -581,7 +591,9 @@ void MainWindow::on_actionResize_triggered()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to corresponding events from buttons clicked
+ *          and call the appropriate function for Editing the image while user changes 
+ *          the slider position
  * 
  * @param sliderPos 
  **********************************************************************************/
@@ -653,9 +665,9 @@ void MainWindow::on_horizontalSlider_valueChanged(int sliderPos)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The function to display the image to the user in the Image Viewer section
  * 
- * @param displayImage 
+ * @param displayImage Image converted to QPixmap from Qimage
  **********************************************************************************/
 void MainWindow::on_actionImage_Display_triggered(QPixmap displayImage)
 {
@@ -670,7 +682,8 @@ void MainWindow::on_actionImage_Display_triggered(QPixmap displayImage)
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to Upload Image when user clicks Upload Button in 
+ *          "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Upload_clicked()
@@ -681,7 +694,8 @@ void MainWindow::on_Upload_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to Save Image when user clicks Save Button in 
+ *          "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Save_clicked()
@@ -692,7 +706,8 @@ void MainWindow::on_Save_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to Exit the appliation when user clicks Exit 
+ *          Button in "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Exit_clicked()
@@ -703,7 +718,8 @@ void MainWindow::on_Exit_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the brightness when user clicks 
+ *          Brightness Button in "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Brightness_clicked()
@@ -714,7 +730,8 @@ void MainWindow::on_Brightness_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the contrast when user clicks 
+ *          Contrast Button in "Upload and Edit" Tab.  
  * 
  **********************************************************************************/
 void MainWindow::on_Contrast_clicked()
@@ -725,7 +742,8 @@ void MainWindow::on_Contrast_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the color when user clicks 
+ *          Color Button in "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Color_clicked()
@@ -736,7 +754,8 @@ void MainWindow::on_Color_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to correct the Hue when user clicks 
+ *          Hue Button in "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Hue_clicked()
@@ -747,7 +766,8 @@ void MainWindow::on_Hue_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to Sharpen/Blur image when user clicks 
+ *          Sharpness Button in "Upload and Edit" Tab. 
  * 
  **********************************************************************************/
 void MainWindow::on_Sharpness_clicked()
@@ -758,7 +778,8 @@ void MainWindow::on_Sharpness_clicked()
 
 
 /***********************************************************************************
- * @brief 
+ * @brief The Function to link the event to Resize image when user clicks 
+ *          Resize Button in "Upload and Edit" Tab.
  * 
  **********************************************************************************/
 void MainWindow::on_Resize_clicked()
