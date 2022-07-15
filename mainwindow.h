@@ -1,5 +1,5 @@
-/**
- * @file mainwindow.h
+/****************************************************************************
+ * @file mainwindow.h                                                                   
  * @author Rajesh Rimal (rajeshrimal516@gmail.com)
  * @brief Header file for the Event Functions in mainwindow.cpp
  * @version 0.1
@@ -7,7 +7,8 @@
  * 
  * @copyright Copyright (c) 2022
  * 
- */
+ ****************************************************************************/
+
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
