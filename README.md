@@ -3,7 +3,7 @@
 An application - graphical user interface (GUI) using a QT Creator software, which will allow user to import an image or capture image from camera. Moreover, the developed application will allow user to change a brightness, contrast, sharpness, resizing, color, hue of the imported image using a slider and save the changed image. 
 
 ## User Guide for application
-The executable file with all the necessary dll files and resources files are contained in the Folder named ***Image_Editor.zip***. The executable file are named ***Image_Editor.exe***. Upon clicking the .exe file, the Main Window of the application is opened. The Main Window consists of two main Tabs: Upload and Edit and Open Camera. 
+The executable file with all the necessary dll files and resources files are contained in the Folder named ***Image_Editor.zip*** (https://www.mediafire.com/file/uhkih86o17v8etb/Image_Editor.zip/file). The executable file are named ***Image_Editor.exe***. Upon clicking the .exe file, the Main Window of the application is opened. The Main Window consists of two main Tabs: Upload and Edit and Open Camera. 
 
 ### Main Window
 #### Upload and Edit Tab
